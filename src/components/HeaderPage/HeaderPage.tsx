@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "antd";
 import Link from "next/link";
 import "./style.scss";
+import LanguageChanger from "../LanguageChanger";
 
 function HeaderPage() {
   return (
@@ -24,12 +25,21 @@ function HeaderPage() {
             <Link href={"#Advertiser"}>Advertiser</Link>
           </li>
           <li>
-            <Link href={"#AdFormats"}>Ad Formats</Link>
+            <Link className="bg-red-700" href={"/admin"}>
+              GO ADMIN
+            </Link>
+          </li>
+          <li>
+            <LanguageChanger />
           </li>
         </ul>
         <div>
-          <Button className="mr-2">SIGN IN</Button>
-          <Button type="primary">SIGN UP</Button>
+          <Link href={"/login"}>
+            <Button className="mr-2">SIGN IN</Button>
+          </Link>
+          <Link href={"#AdFormats"}>
+            <Button type="primary">SIGN UP</Button>
+          </Link>
         </div>
       </div>
     </header>
