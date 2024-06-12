@@ -1,0 +1,250 @@
+@import "@/App.scss";
+
+.content-login {
+  background-color: var(--color-white);
+  padding: 5rem 2rem 2rem;
+
+  @include screen1600 {
+    padding-top: 2rem;
+  }
+
+  @include phone {
+    background: linear-gradient(135deg, #fdf1dd 0%, #e6f6fe 100%);
+    padding: 40px 24px 53px;
+    height: 100vh;
+  }
+
+  .logo {
+    margin-bottom: 2.625rem;
+
+    @include screen1600 {
+      margin-bottom: 1.5rem;
+    }
+
+    @include phone {
+      margin-bottom: 2.5rem;
+
+      a {
+        justify-content: start !important;
+      }
+    }
+  }
+
+  .title-page {
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.75rem;
+    color: var(--color-black);
+    margin-bottom: 2.625rem;
+
+    @include screen1600 {
+      margin-bottom: 1rem;
+    }
+
+    @include phone {
+      font-size: 1.5rem;
+      line-height: 2rem;
+      font-weight: 700;
+      max-width: 280px;
+      margin: 0 auto 2rem;
+    }
+  }
+
+  .subtitle-page {
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.75rem;
+    color: var(--color-black);
+    margin-bottom: 1.5rem;
+
+    @include screen1600 {
+      margin-bottom: 1rem;
+    }
+
+    @include phone {
+      display: none;
+    }
+  }
+
+  form {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+
+    @include screen1600 {
+      max-width: 100%;
+      padding: 0 5rem;
+    }
+
+    @include phone {
+      padding: 0;
+    }
+
+    .ant-row {
+      .ant-form-item-label {
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: var(--color-black);
+        @include manrope;
+
+        label {
+          &:before {
+            position: absolute;
+            right: -14px;
+            font-size: 0.75rem;
+            top: 0.125rem;
+          }
+        }
+      }
+
+      .ant-form-item-control-input {
+        input {
+          height: 2.5rem;
+          border-radius: 4px;
+          padding: 0 1rem;
+          font-weight: 500;
+          font-size: 14px;
+          color: var(--color-black);
+          @include manrope;
+
+          &::placeholder {
+            color: var(--color-gray);
+          }
+        }
+
+        .ant-input-affix-wrapper {
+          border-radius: 4px;
+          height: 40px;
+          padding: 0;
+
+          input {
+            padding: 0 1rem;
+            height: auto;
+            border: 0;
+          }
+
+          .ant-input-suffix {
+            margin-left: 0;
+            margin-right: 0.5rem;
+          }
+        }
+      }
+
+      .ant-form-item-explain-error {
+        text-align: left;
+      }
+    }
+  }
+
+  .btn-login {
+    background-color: var(--color-green);
+    height: 3rem !important;
+    border-radius: 0.25rem;
+    color: var(--color-white);
+    border: 0;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 28.75rem;
+    width: 100%;
+    font-weight: 600;
+
+    @include screen1600 {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @include phone {
+      height: 2.5rem !important;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    &.ant-btn:hover,
+    &.ant-btn:focus,
+    &.ant-btn:active {
+      background-color: var(--color-green);
+      color: var(--color-white);
+    }
+  }
+
+  .forgot-button {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    margin-bottom: 1.5rem;
+    @include manrope;
+    text-align: right;
+    margin-top: -16px;
+
+    @include screen1600 {
+      margin-bottom: 1rem;
+    }
+
+    @include phone {
+      margin-bottom: 1.5rem;
+    }
+
+    a {
+      font-weight: 700;
+      color: var(--color-blue-700);
+    }
+  }
+
+  @include phone {
+    .content-form {
+      background: var(--background-white);
+      padding: 2.5rem 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0px 0px 20px 4px rgba(88, 88, 88, 0.1);
+    }
+  }
+
+  .validation {
+    text-align: left;
+    margin-top: 8px;
+    margin-bottom: 1.5rem;
+
+    &__item {
+      color: var(--color-gray-900);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+
+      img {
+        width: 1rem;
+        height: 1rem;
+        position: relative;
+        top: 3px;
+        filter: brightness(0) saturate(100%) invert(34%) sepia(2%) saturate(8%) hue-rotate(21deg) brightness(91%) contrast(90%);
+      }
+
+      &.pass {
+        color: var(--color-green);
+
+        img {
+          filter: brightness(0) saturate(100%) invert(53%) sepia(36%) saturate(868%) hue-rotate(70deg) brightness(99%) contrast(88%);
+        }
+      }
+    }
+  }
+}
+
+.field-require span {
+  color: var(--color-red);
+}
+
+.link-to {
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: var(--color-black);
+
+  a {
+    color: var(--color-blue-700);
+    font-weight: 700;
+  }
+}

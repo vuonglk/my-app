@@ -1,0 +1,18 @@
+.header-page {
+  background-color: #ffffff;
+  min-height: 80px;
+
+  ul.flex {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+
+    li {
+      margin-right: 54px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
