@@ -1,10 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextFetchEvent, NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
+import { CustomMiddleware } from "./i18nMiddleware";
 
 const jwtSecret = new TextEncoder().encode("someJwtSecret");
 
-export default async function authMiddleware(request: NextRequest) {
+export function withAuthMiddleware(middleware: CustomMiddleware) {
+  return async (request: NextRequest, event: NextFetchEvent, response: NextResponse = NextResponse.next()) => {
+    const result = await authMiddleware(request, response);
+    return middleware(request, event, result)
+  }
+}
+
+export default async function authMiddleware(request: NextRequest, forwardResponse: NextResponse) {
   if (request.nextUrl.pathname.includes("/admin")) {
     const accessToken = request.cookies.get("accessToken");
 
@@ -16,8 +24,8 @@ export default async function authMiddleware(request: NextRequest) {
 
     try {
       await jwtVerify(accessToken.value, jwtSecret);
-      return NextResponse.next();
-    } catch (error) {
+      return forwardResponse;
+    } catch (error: any) {
       if (error.name === "JWTExpired") {
         const refreshToken = request.cookies.get("refreshToken");
         if (!refreshToken) {
@@ -39,7 +47,7 @@ export default async function authMiddleware(request: NextRequest) {
         );
         const resJson = await responseAccessToken.json();
         if (resJson.success) {
-          const response = NextResponse.next();
+          const response = forwardResponse;
           response.cookies.set({
             name: "accessToken",
             value: resJson.accessToken,
@@ -48,27 +56,32 @@ export default async function authMiddleware(request: NextRequest) {
           });
           return response;
         }
-        return NextResponse.redirect(new URL("/login", request.url));
+
+        const response = NextResponse.redirect(new URL("/login", request.url));
+        return response;
       }
-      return NextResponse.redirect(new URL("/login", request.url));
+
+      const response = NextResponse.redirect(new URL("/login", request.url));
+      return response;
     }
   }
 
   if (request.nextUrl.pathname.includes("/login")) {
     const accessToken = request.cookies.get("accessToken");
 
-    const response = NextResponse.next();
+    const response = forwardResponse;
     response.cookies.delete("accessToken");
     response.cookies.delete("refreshToken");
 
     if (accessToken) {
       if (await jwtVerify(accessToken.value, jwtSecret)) {
-        return NextResponse.redirect(new URL("/admin", request.url));
+        const response = NextResponse.redirect(new URL("/admin", request.url));
+        return response;
       }
     }
 
     return response;
   }
 
-  // return NextResponse.next();
+  return forwardResponse;
 }
